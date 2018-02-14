@@ -6,6 +6,14 @@ class Vec {
   }
 }
 
+class Rect {
+  constructor(w, h)
+  {
+    this.pos = new Vec;
+    this.size = new Vec(w, h);
+  }
+}
+
 const canvas = document.getElementById('pong');
 const context = canvas.getContext('2d');
 
