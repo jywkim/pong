@@ -29,8 +29,27 @@ const ball = new Ball;
 ball.pos.x = 100;
 ball.pos.y = 50;
 
-context.fillStyle = '#000';
-context.fillRect(0, 0, canvas.width, canvas.height);
+ball.vel.x = 100;
+ball.vel.y = 100;
 
-context.fillStyle = '#fff';
-context.fillRect(ball.pos.x, ball.pos.y, ball.size.x, ball.size.y);
+let lastTime;
+function callback(millis) {
+  if (lastTime) {
+    update((millis - lastTime) / 1000);
+  }
+  lastTime = millis;
+  requestAnimationFrame(callback);
+}
+
+function update(dt) {
+  ball.pos.x += ball.vel.x * dt;
+  ball.pos.y += ball.vel.y * dt;
+
+  context.fillStyle = '#000';
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  context.fillStyle = '#fff';
+  context.fillRect(ball.pos.x, ball.pos.y, ball.size.x, ball.size.y);
+}
+
+callback();
