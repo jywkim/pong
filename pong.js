@@ -14,8 +14,19 @@ class Rect {
   }
 }
 
+class Ball extends Rect {
+  constructor()
+  {
+    super(10, 10);
+    this.vel = new Vec;
+  }
+}
+
 const canvas = document.getElementById('pong');
 const context = canvas.getContext('2d');
+
+const ball = new Ball;
+console.log(ball);
 
 context.fillStyle = '#000';
 context.fillRect(0, 0, canvas.width, canvas.height);
