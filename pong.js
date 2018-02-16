@@ -47,11 +47,6 @@ class Pong {
     this._context = canvas.getContext('2d');
 
     this.ball = new Ball;
-    this.ball.pos.x = 100;
-    this.ball.pos.y = 50;
-
-    this.ball.vel.x = 100;
-    this.ball.vel.y = 100;
 
     this.players = [
       new Player,
@@ -73,6 +68,8 @@ class Pong {
       requestAnimationFrame(callback);
     };
     callback();
+
+    this.reset();
   }
   collide(player, ball) {
     if (player.left < ball.right && player.right > ball.left &&
@@ -91,13 +88,21 @@ class Pong {
     this._context.fillStyle = '#fff';
     this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
   }
+  reset() {
+    this.ball.pos.x = 100;
+    this.ball.pos.y = 50;
+
+    this.ball.vel.x = 100;
+    this.ball.vel.y = 100;
+  }
   update(dt) {
     this.ball.pos.x += this.ball.vel.x * dt;
     this.ball.pos.y += this.ball.vel.y * dt;
 
     if (this.ball.left < 0 || this.ball.right > this._canvas.width) {
       const playerId = this.ball.vel.x < 0 | 0;
-      console.log(playerId);
+      this.players[playerId].score++;
+      this.reset();
     }
     if (this.ball.top < 0 || this.ball.bottom > this._canvas.height) {
       this.ball.vel.y = -this.ball.vel.y;
